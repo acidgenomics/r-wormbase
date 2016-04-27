@@ -59,13 +59,15 @@
 %%  ~~ If necessary, more details than the __description__ above ~~
 }
 \source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
+WormBase (\url{http://www.wormbase.org})
+Biomart (\url{http://www.biomart.org})
+InterPro (\url{https://www.ebi.ac.uk/interpro})
+PANTHER (\url{http://pantherdb.org})
 }
 \references{
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
 data(metadata)
-## maybe str(metadata) ; plot(metadata) ...
 }
 \keyword{datasets}
