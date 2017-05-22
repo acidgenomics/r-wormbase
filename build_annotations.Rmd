@@ -29,7 +29,6 @@ gene <- Reduce(function(...) {
     # select(noquote(order(names(.)))) %>%
     # select(gene, everything()) %>%
     arrange(gene)
-saveData(gene)
 ```
 
 ```{r rnai}
@@ -48,7 +47,6 @@ rnai <- bind_rows(ahringer, cherrypick, worfdb) %>%
     group_by(gene) %>%
     summarizeRows %>%
     select(gene, noquote(order(names(.))))
-saveData(rnai)
 ```
 
 ```{r eggnog}
@@ -80,5 +78,16 @@ build <- list(date = Sys.Date(),
               rstats = rstats,
               wormbase = wormbase,
               sessionInfo = sessionInfo)
-saveData(build)
+```
+
+```{r annotations}
+annotations <- list(
+    gene = gene,
+    rnai = rnai,
+    eggnog = eggnog,
+    blastp = blastp,
+    peptide = peptide,
+    build = build
+)
+saveData(annotations)
 ```
