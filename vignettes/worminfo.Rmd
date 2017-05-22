@@ -8,7 +8,7 @@ author:
   email: mike@steinbaugh.com
 abstract: >
   Abstract placeholder text.
-bibliography: bibliography.bib
+bibliography: worminfo.bib
 output: BiocStyle::pdf_document
 vignette: >
   %\VignetteIndexEntry{worminfo}
@@ -16,7 +16,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
+library(tidyverse)
 library(worminfo)
 ```
 
@@ -62,7 +63,7 @@ gene("skn-1", format = "name")
 These queries all return the same result:
 
 ```{r, echo = FALSE}
-gene("WBGene00004804") %>% t
+gene("WBGene00004804") %>% glimpse
 ```
 
 You can obtain all genes in a named `class`. For example, let's get the current list of *daf* (**D**auer **A**rrest **F**orming) genes:
@@ -83,7 +84,7 @@ gene("unfolded protein response", format = "keyword")
 The `gene()` function contains annotation data that can be queried using the `select` parameter:
 
 ```{r, echo = FALSE, results = "asis"}
-get("annotation", envir = asNamespace("worminfo"))$gene %>%
+get("annotations", envir = asNamespace("worminfo"))$gene %>%
     names %>% mdList
 ```
 
@@ -99,7 +100,7 @@ Let's `select` the biotype and [Ensembl][] description for [*sbp-1*][] (bHLH tra
 ```{r}
 gene("sbp-1",
      format = "name",
-     select = c("biotype", "ensemblDescription")) %>% t
+     select = c("biotype", "ensemblDescription")) %>% glimpse
 ```
 
 
@@ -116,7 +117,7 @@ libraries. This can be done easily with the `rnai()` function, just search by
 `name`:
 
 ```{r}
-rnai("sbp-1", format = "name") %>% t
+rnai("sbp-1", format = "name") %>% glimpse
 ```
 
 Alternatively, you can map by `gene`, `sequence` (ORF), or legacy `genePair`. These queries return the same result:
@@ -140,7 +141,7 @@ Well identifiers for the [Ahringer][] 384 well library must include a chromosome
 
 ```{r}
 c("ahringer384-III-6C01",
-  "ahringer96-86-B01") %>% rnai %>% t
+  "ahringer96-86-B01") %>% rnai %>% glimpse
 ```
 
 ### [ORFeome][] library format
@@ -149,7 +150,7 @@ We advise formatting identifiers for the 96 well [ORFeome][] library as `orfeome
 
 ```{r}
 c("GHR-11010@G06",
-  "orfeome96-11010-G06") %>% rnai %>% t
+  "orfeome96-11010-G06") %>% rnai %>% glimpse
 ```
 
 
@@ -162,12 +163,4 @@ cherrypick("unfolded protein response",
            ahringer96 = FALSE,
            ahringer384 = FALSE,
            orfeome96 = TRUE)
-```
-
-
-
-# Annotation data build information
-
-```{r}
-get("build", envir = asNamespace("worminfo"))
 ```
