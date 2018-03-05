@@ -1,53 +1,55 @@
-# FIXME Need to improve the separators here
-
-#' WormBase RESTful RNAi Gene Ontology Query
+#' Gene Ontology
+#'
+#' @family REST API Functions
 #'
 #' @importFrom basejump camel
 #' @importFrom dplyr bind_rows mutate
 #' @importFrom parallel mclapply
 #' @importFrom tibble as_tibble tibble
 #'
-#' @param identifier Gene identifier.
+#' @inheritParams general
 #'
-#' @return JSON content [tibble].
+#' @return Gene [tibble].
 #' @export
 #'
 #' @examples
-#' geneOntology("WBGene00004804") %>% glimpse()
-geneOntology <- function(identifier) {
-    identifier <- .uniqueIdentifier(identifier)
-    list <- lapply(seq_along(identifier), function(a) {
-        if (!grepl("^WBGene[0-9]{8}$", identifier[[a]])) {
-            warning(paste(
-                "Invalid identifier", identifier[[a]]
-            ), call. = FALSE)
-            return(NULL)
-        }
-        rest <- file.path(
+#' geneOntology(c("WBGene00000912", "WBGene00004804")) %>% glimpse()
+geneOntology <- function(gene) {
+    .assertAllAreGenes(gene)
+    list <- lapply(gene, function(id) {
+        query <- paste(
             "widget",
             "gene",
-            identifier[[a]],
-            "gene_ontology") %>%
-            .rest() %>%
+            id,
+            "gene_ontology",
+            sep = "/"
+        )
+        data <- .rest(query) %>%
             .[["fields"]] %>%
             .[["gene_ontology"]] %>%
             .[["data"]]
-        if (is.null(rest)) return(NULL)
-        goTerms <- mclapply(seq_along(rest), function(b) {
-            lapply(seq_along(rest[[b]]), function(c) {
-                identifier <- rest[[b]][[c]][["term_description"]][["id"]]
-                name <- rest[[b]][[c]][["term_description"]][["label"]]
-                paste(identifier, name, sep = "~")
+        if (is.null(data)) {
+            return(NULL)
+        }
+        goTerms <- mclapply(data, function(process) {
+            lapply(seq_along(process), function(x) {
+                gene <- process[[x]][["term_description"]][["id"]]
+                name <- process[[x]][["term_description"]][["label"]]
+                paste(gene, name, sep = "~")
             }) %>%
+                unlist() %>%
                 unique() %>%
-                toString()
+                sort()
         })
-        names(goTerms) <- camel(names(rest))
-        goTerms %>%
+        lapply(goTerms, list) %>%
             as_tibble() %>%
-            mutate(gene = identifier[[a]])
+            mutate(gene = id)
     })
-    df <- bind_rows(list)
-    if (!nrow(df)) return(NULL)
-    df[, unique(c("gene", sort(colnames(df))))]
+    if (!length(list)) {
+        return(NULL)
+    }
+    list %>%
+        bind_rows() %>%
+        camel() %>%
+        .[, unique(c("gene", sort(colnames(.))))]
 }
