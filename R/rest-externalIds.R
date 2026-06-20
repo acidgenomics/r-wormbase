@@ -16,12 +16,11 @@
 externalIds <- function(genes) {
     assert(.allAreGenes(genes))
     list <- lapply(genes, function(gene) {
-        query <- paste(
+        query <- file.path(
             "widget",
             "gene",
             gene,
-            "external_links",
-            sep = "/"
+            "external_links"
         )
         rest <- .rest(query)[["fields"]][["xrefs"]][["data"]]
         if (is.null(rest)) {

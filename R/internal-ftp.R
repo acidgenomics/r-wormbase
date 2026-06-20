@@ -12,17 +12,15 @@
                 stem,
                 sep = "."
             ),
-            subdir = paste(
+            subdir = file.path(
                 "species",
                 "c_elegans",
                 .bioproject,
-                "annotation",
-                sep = "/"
+                "annotation"
             ),
             release = release
         )
     }
-
 
 
 #' Download an assembly file from WormBase FTP server
@@ -39,16 +37,14 @@
                 stem,
                 sep = "."
             ),
-            subdir = paste(
+            subdir = file.path(
                 "species",
                 "c_elegans",
-                .bioproject,
-                sep = "/"
+                .bioproject
             ),
             release = release
         )
     }
-
 
 
 #' Ontology file from WormBase FTP server
@@ -65,15 +61,12 @@
     }
 
 
-
 #' Transmit file from WormBase FTP server
 #'
 #' @note Updated 2021-02-17.
 #' @noRd
 .transmit <-
-    function(basename,
-             subdir,
-             release) {
+    function(basename, subdir, release) {
         assert(
             isString(basename),
             isString(subdir),

@@ -13,7 +13,7 @@
 #' - https://wormbase.org/about/userguide/for_developers/API-REST
 .rest <- function(query) {
     assert(isCharacter(query))
-    url <- paste("https://wormbase.org", "rest", query, sep = "/")
+    url <- paste0("https://wormbase.org/rest/", query)
     json <- getJson(url)
     assert(is.list(json))
     json

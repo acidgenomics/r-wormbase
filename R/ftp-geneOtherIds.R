@@ -23,11 +23,11 @@ geneOtherIds <- function(release = NULL) {
     ## Remove `CELE_*` identifiers.
     x <- gsub("\t(CELE_[A-Z0-9\\.]+)", "", x)
     ## Convert tabs to commas for identifiers.
-    x <- gsub("\t", "|", x)
+    x <- gsub("\t", "|", x, fixed = TRUE)
     ## Add tab back in to separate \code{gene} for row names.
     x <- gsub("^(WBGene\\d+)(\\|)?", "\\1\t", x)
     ## Break out the chain and evaluate.
-    x <- strsplit(x, "\t")
+    x <- strsplit(x, "\t", fixed = TRUE)
     x <- CharacterList(x)
     df <- DataFrame(do.call(rbind, x))
     colnames(df) <- c("geneId", "geneOtherIds")
@@ -35,7 +35,8 @@ geneOtherIds <- function(release = NULL) {
     df <- df[keep, , drop = FALSE]
     x <- CharacterList(strsplit(
         x = as.character(df[["geneOtherIds"]]),
-        split = "\\|"
+        split = "|",
+        fixed = TRUE
     ))
     names(x) <- df[["geneId"]]
     keep <- grepl(pattern = .genePattern, x = names(x))

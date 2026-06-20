@@ -7,11 +7,10 @@
 "_PACKAGE"
 
 
-
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics camelCase makeNames rbindToDataFrame removeNa
-#' sanitizeNa
+#' @importFrom AcidGenerics sanitizeNa
 #' @importFrom BiocGenerics do.call lapply t unlist unsplit
 #' @importFrom S4Vectors aggregate head split tail
 #' @importFrom pipette import
@@ -28,15 +27,14 @@ NULL
 NULL
 
 
-
 ## Standard functions ==========================================================
 
 #' @importFrom AcidBase pasteUrl strExtract strMatch strMatchAll strSplit
-#' tempdir2 unlink2
+#' @importFrom AcidBase tempdir2 unlink2
 #' @importFrom AcidCLI abort alert
 #' @importFrom goalie allAreMatchingRegex assert bapply hasLength
-#' hasNoDuplicates isAFile isAUrl isCharacter isFlag isMatchingRegex isString
-#' isSubset
+#' @importFrom goalie hasNoDuplicates isAFile isAUrl isCharacter isFlag
+#' @importFrom goalie isMatchingRegex isString isSubset
 #' @importFrom IRanges CharacterList DataFrameList
 #' @importFrom S4Vectors DataFrame List
 #' @importFrom methods as is
