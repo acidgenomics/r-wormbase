@@ -22,7 +22,6 @@
 }
 
 
-
 #' Error message for invalid FTP file
 #'
 #' @note Updated 2021-09-03.
@@ -38,7 +37,6 @@
         basename(file)
     ))
 }
-
 
 
 #' Is the input a WormBase release?
