@@ -47,7 +47,7 @@ rnaiPhenotypes <- function(release = NULL) {
         colnames = c("geneId", "sequence", "rnaiPhenotypes")
     )
     genes <- x[["geneId"]]
-    x <- strsplit(x[["rnaiPhenotypes"]], ", ")
+    x <- strsplit(x[["rnaiPhenotypes"]], ", ", fixed = TRUE)
     x <- CharacterList(x)
     names(x) <- genes
     keep <- grepl(pattern = .genePattern, x = names(x))

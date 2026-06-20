@@ -37,7 +37,12 @@ peptides <- function(release = NULL) {
                 pattern = "\\b([a-z]+)=(\"[^\"]+\"|[^ ]+\\b)",
                 fixed = FALSE
             )[[1L]]
-            x[, 3L] <- gsub(pattern = "\"", replacement = "", x = x[, 3L])
+            x[, 3L] <- gsub(
+                pattern = "\"",
+                replacement = "",
+                x = x[, 3L],
+                fixed = TRUE
+            )
             out <- x[, 3L]
             names(out) <- x[, 2L]
             out[["sequence"]] <- sequence
@@ -50,7 +55,8 @@ peptides <- function(release = NULL) {
     keep <- grepl(pattern = .genePattern, x = x[["geneId"]])
     x <- x[keep, , drop = FALSE]
     x <- x[
-        order(x[["geneId"]], x[["sequence"]], x[["wormpep"]]), ,
+        order(x[["geneId"]], x[["sequence"]], x[["wormpep"]]),
+        ,
         drop = FALSE
     ]
     x <- split(x, f = x[["geneId"]])
