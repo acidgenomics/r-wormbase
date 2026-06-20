@@ -42,11 +42,11 @@ description <- function(release = NULL) {
     ## Clean up spaces and tabs.
     x <- sub(pattern = "^ ", replacement = "", x = x)
     x <- sub(pattern = " $", replacement = "", x = x)
-    x <- gsub(pattern = "  ", replacement = " ", x = x)
-    x <- gsub(pattern = " \t", replacement = "\t", x = x)
-    x <- gsub(pattern = "\t ", replacement = "\t", x = x)
+    x <- gsub(pattern = "  ", replacement = " ", x = x, fixed = TRUE)
+    x <- gsub(pattern = " \t", replacement = "\t", x = x, fixed = TRUE)
+    x <- gsub(pattern = "\t ", replacement = "\t", x = x, fixed = TRUE)
     ## Now split by the tab delimiters.
-    x <- strsplit(x, split = "\t")
+    x <- strsplit(x, split = "\t", fixed = TRUE)
     assert(all(lengths(x) == 6L))
     x <- CharacterList(x)
     ## Before we process the list, remove non-N2 annotations. Added in WS269.

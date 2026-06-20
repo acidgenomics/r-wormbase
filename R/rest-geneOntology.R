@@ -15,12 +15,11 @@
 geneOntology <- function(genes) {
     assert(.allAreGenes(genes))
     list <- lapply(genes, function(gene) {
-        query <- paste(
+        query <- file.path(
             "widget",
             "gene",
             gene,
-            "gene_ontology",
-            sep = "/"
+            "gene_ontology"
         )
         rest <- .rest(query)[["fields"]][["gene_ontology"]][["data"]]
         if (is.null(rest)) {
