@@ -17,7 +17,7 @@ Authors@R: c(
     ))
 License: Apache License (>= 2)
 URL:
-    https://r.acidgenomics.com/packages/wormbase/,
+    https://r.acidgenomics.com/wormbase/,
     https://github.com/acidgenomics/r-wormbase/
 BugReports: https://github.com/acidgenomics/r-wormbase/issues/
 Encoding: UTF-8

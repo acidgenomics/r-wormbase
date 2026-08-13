@@ -33,7 +33,7 @@
 #'
 #' @note Updated 2021-02-17.
 #' @noRd
-.userAgent <- "https://r.acidgenomics.com/packages/wormbase/"
+.userAgent <- "https://r.acidgenomics.com/wormbase/"
 
 
 #' Default release argument
